@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS hospital;
+
+USE hospital;
+
 CREATE TABLE consultorios (
   id       int(10) NOT NULL AUTO_INCREMENT, 
   piso     int(1) NOT NULL, 
@@ -39,6 +43,8 @@ CREATE TABLE visitas (
   id            int(10) NOT NULL AUTO_INCREMENT, 
   idPaciente    int(10) NOT NULL, 
   idConsultorio int(10) NOT NULL, 
+  fecha         date NOT NULL, 
+  observaciones text NOT NULL, 
   CONSTRAINT vsitas_pk 
     PRIMARY KEY (id));
 ALTER TABLE consultorios ADD CONSTRAINT consultorio_medico FOREIGN KEY (idMedico) REFERENCES medicos (id);

@@ -13,13 +13,132 @@
             targetNamespace="http://www.itorizaba.com/ServiciosHospital.xsd1"
             xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:xsd1="http://www.itorizaba.com/ServiciosHospital.xsd1"> </xsd:schema>
+            xmlns:xsd1="http://www.itorizaba.com/ServiciosHospital.xsd1">
+            <xsd:complexType name="Especialidad">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="id" type="xsd:int"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="descripcion" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Medico">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="id" type="xsd:int"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="nombre" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="apPaterno" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="apMaterno" type="xsd:string"/>
+                    <xsd:element
+                        maxOccurs="1"
+                        minOccurs="0"
+                        name="especialidad"
+                        type="xsd1:Especialidad"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Consultorio">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="id" type="xsd:int"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="piso" type="xsd:int"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="numero" type="xsd:int"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="medico" type="xsd1:Medico"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Direccion">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="id" type="xsd:int"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="direccion" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="ciudad" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Paciente">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="idExpediente" type="xsd:int"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="nombre" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="apPaterno" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="apMaterno" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="telefono" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="rfc" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="curp" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="direccion" type="xsd1:Direccion"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Visita">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="id" type="xsd:int"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="fecha" type="xsd:date"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="observaciones" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ListaPacientes">
+                <xsd:sequence>
+                    <xsd:element
+                        maxOccurs="unbounded"
+                        minOccurs="0"
+                        name="item"
+                        type="xsd1:Paciente"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ListaVisitas">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd1:Visita"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="DetallePaciente">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="paciente" type="xsd1:Paciente"/>
+                    <xsd:element
+                        maxOccurs="1"
+                        minOccurs="0"
+                        name="visitas"
+                        type="xsd1:ListaVisitas"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
     </wsdl:types>
-    <wsdl:portType name="ServiciosHospitalPortType">   </wsdl:portType>
+    <wsdl:message name="GetPacientesPorCiudadResponse">
+        <wsdl:part name="pacientes" type="xsd1:ListaPacientes"/>
+    </wsdl:message>
+    <wsdl:message name="GetDetallePacienteRequest">
+        <wsdl:part name="expediente" type="xsd:int"/>
+    </wsdl:message>
+    <wsdl:message name="GetPacientesPorCiudadRequest">
+        <wsdl:part name="ciudad" type="xsd:string"/>
+    </wsdl:message>
+    <wsdl:message name="GetDetallePacienteResponse">
+        <wsdl:part name="detalle" type="xsd1:DetallePaciente"/>
+    </wsdl:message>
+    <wsdl:portType name="ServiciosHospitalPortType">
+        <wsdl:operation name="GetPacientesPorCiudad">
+            <wsdl:input message="tns:GetPacientesPorCiudadRequest"/>
+            <wsdl:output message="tns:GetPacientesPorCiudadResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetDetallePaciente">
+            <wsdl:input message="tns:GetDetallePacienteRequest"/>
+            <wsdl:output message="tns:GetDetallePacienteResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
     <wsdl:binding
-        name="ServiciosHospitalBinding"
+        name="ServiciosHospitalPortTypeBinding"
         type="tns:ServiciosHospitalPortType">
         <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetPacientesPorCiudad">
+            <soap:operation
+                soapAction="capeconnect:ServiciosHospital:ServiciosHospitalPortType#GetPacientesPorCiudad"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetDetallePaciente">
+            <soap:operation
+                soapAction="capeconnect:ServiciosHospital:ServiciosHospitalPortType#GetDetallePaciente"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
     </wsdl:binding>
     <wsdl:service name="ServiciosHospital">
         <wsdl:port binding="tns:ServiciosHospitalBinding" name="ServiciosHospitalPort">
