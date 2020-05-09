@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+    name="ServiciosHospital"
+    targetNamespace="http://www.itorizaba.com/ServiciosHospital.wsdl"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://www.itorizaba.com/ServiciosHospital.wsdl"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsd1="http://www.itorizaba.com/ServiciosHospital.xsd1">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Created using Cape Clear Studio SOA Editor - http://www.capeclear.com</wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema
+            targetNamespace="http://www.itorizaba.com/ServiciosHospital.xsd1"
+            xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:xsd1="http://www.itorizaba.com/ServiciosHospital.xsd1"> </xsd:schema>
+    </wsdl:types>
+    <wsdl:portType name="ServiciosHospitalPortType">   </wsdl:portType>
+    <wsdl:binding
+        name="ServiciosHospitalBinding"
+        type="tns:ServiciosHospitalPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    </wsdl:binding>
+    <wsdl:service name="ServiciosHospital">
+        <wsdl:port binding="tns:ServiciosHospitalBinding" name="ServiciosHospitalPort">
+            <soap:address location="http://localhost:8000/ccx/ServiciosHospital"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
