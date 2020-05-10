@@ -5,7 +5,13 @@
  */
 package me.hsanchez.hospital.wsdl;
 
+import com.itorizaba.servicioshospital.RespuestaError;
+import com.itorizaba.servicioshospital.ListaPacientes;
+import com.itorizaba.servicioshospital.DetallePaciente;
 import javax.jws.WebService;
+import javax.xml.ws.Holder;
+import me.hsanchez.hospital.exceptions.QueryExecutionException;
+import me.hsanchez.hospital.service.PacienteService;
 
 /**
  *
@@ -13,15 +19,53 @@ import javax.jws.WebService;
  */
 @WebService(serviceName = "ServiciosHospital", portName = "ServiciosHospitalPort", endpointInterface = "com.itorizaba.servicioshospital.ServiciosHospitalPortType", targetNamespace = "http://www.itorizaba.com/ServiciosHospital.wsdl", wsdlLocation = "WEB-INF/wsdl/ServiciosHospital.wsdl")
 public class ServiciosHospital {
+    
+    private final PacienteService pacienteService;
 
-    public com.itorizaba.servicioshospital.ListaPacientes getPacientesPorCiudad(java.lang.String ciudad) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+    public ServiciosHospital() {
+        this.pacienteService = new PacienteService();
     }
 
-    public com.itorizaba.servicioshospital.DetallePaciente getDetallePaciente(int expediente) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+    /**
+     * Obtiene los pacientes de una determinada ciudad
+     * @param ciudad Ciudad a considerar para la búsqueda
+     * @param pacientes Lista de pacientes en la ciudad
+     * @param error Error de petición
+     */
+    public void getPacientesPorCiudad(String ciudad, Holder<ListaPacientes> pacientes, Holder<RespuestaError> error) {
+        RespuestaError re = new RespuestaError();
+        error.value = re;
+        re.setFallo(false);
+        
+        try {
+            ListaPacientes lista = this.pacienteService.obtenerPorCiudad(ciudad);
+            pacientes.value = lista;
+        } catch (QueryExecutionException ex) {
+            re.setFallo(true);
+            re.setMensaje(ex.getMessage() + ": " + ex.getCause().getMessage());
+            pacientes.value = new ListaPacientes();
+        }
+    }
+
+    /**
+     * Obtiene el detalle de un expediente por su número de expediente
+     * @param expediente Número de expediente del paciente
+     * @param detalle Detalle del expediente
+     * @param error Error de petición
+     */
+    public void getDetallePaciente(int expediente, Holder<DetallePaciente> detalle, Holder<RespuestaError> error) {
+        RespuestaError re = new RespuestaError();
+        error.value = re;
+        re.setFallo(false);
+        
+        try {
+            DetallePaciente respuesta = this.pacienteService.obtenerDetalle(expediente);
+            detalle.value = respuesta;
+        } catch (QueryExecutionException ex) {
+            re.setFallo(true);
+            re.setMensaje(ex.getMessage() + ": " + ex.getCause().getMessage());
+            detalle.value = new DetallePaciente();
+        }
     }
     
 }

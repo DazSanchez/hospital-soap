@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/hsanchez/arq-sw/Examen3/wsdl/ServiciosHospital.wsdl" uri="wsdl/ServiciosHospital.wsdl"/>
+    <system systemId="http://localhost:8080/Hospital/ServiciosHospital?Tester" uri="wsdl/localhost_8080/Hospital/ServiciosHospital.tester"/>
     <system systemId="http://localhost:8080/Hospital/ServiciosHospital?wsdl" uri="wsdl/localhost_8080/Hospital/ServiciosHospital.wsdl"/>
+    <system systemId="file:/C:/hsanchez/arq-sw/Examen3/wsdl/ServiciosHospital.wsdl" uri="wsdl/ServiciosHospital.wsdl"/>
 </catalog>

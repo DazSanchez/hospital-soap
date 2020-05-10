@@ -29,27 +29,27 @@ CREATE TABLE medicos (
   CONSTRAINT medico_pk 
     PRIMARY KEY (id));
 CREATE TABLE pacientes (
-  idExpediente int(10) NOT NULL AUTO_INCREMENT, 
-  nombre       varchar(60) NOT NULL, 
-  apPaterno    varchar(60) NOT NULL, 
-  apMaterno    varchar(60) NOT NULL, 
-  telefono     varchar(10) NOT NULL, 
-  rfc          varchar(13) NOT NULL UNIQUE, 
-  curp         varchar(13) NOT NULL UNIQUE, 
-  idDireccion  int(10), 
+  idExpediente  int(10) NOT NULL AUTO_INCREMENT, 
+  nombre        varchar(60) NOT NULL, 
+  apPaterno     varchar(60) NOT NULL, 
+  apMaterno     varchar(60) NOT NULL, 
+  telefono      varchar(10) NOT NULL, 
+  rfc           varchar(13) NOT NULL UNIQUE, 
+  curp          varchar(13) NOT NULL UNIQUE, 
+  idDireccion   int(10), 
+  photo         mediumtext NOT NULL, 
+  idConsultorio int(10) NOT NULL, 
   CONSTRAINT paciente_pk 
     PRIMARY KEY (idExpediente));
 CREATE TABLE visitas (
   id            int(10) NOT NULL AUTO_INCREMENT, 
   idPaciente    int(10) NOT NULL, 
-  idConsultorio int(10) NOT NULL, 
   fecha         date NOT NULL, 
   observaciones text NOT NULL, 
   CONSTRAINT vsitas_pk 
     PRIMARY KEY (id));
 ALTER TABLE consultorios ADD CONSTRAINT consultorio_medico FOREIGN KEY (idMedico) REFERENCES medicos (id);
-ALTER TABLE visitas ADD CONSTRAINT consultorio_visita FOREIGN KEY (idConsultorio) REFERENCES consultorios (id);
 ALTER TABLE medicos ADD CONSTRAINT medico_especialidad FOREIGN KEY (idEspecialidad) REFERENCES especialidades (id);
+ALTER TABLE pacientes ADD CONSTRAINT paciente_consultorio FOREIGN KEY (idConsultorio) REFERENCES consultorios (id);
 ALTER TABLE pacientes ADD CONSTRAINT paciente_direccion FOREIGN KEY (idDireccion) REFERENCES direcciones (id);
 ALTER TABLE visitas ADD CONSTRAINT paciente_visita FOREIGN KEY (idPaciente) REFERENCES pacientes (idExpediente);
-

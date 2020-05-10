@@ -58,6 +58,7 @@
                     <xsd:element maxOccurs="1" minOccurs="0" name="rfc" type="xsd:string"/>
                     <xsd:element maxOccurs="1" minOccurs="0" name="curp" type="xsd:string"/>
                     <xsd:element maxOccurs="1" minOccurs="0" name="direccion" type="xsd1:Direccion"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="photo" type="xsd:string"/>
                 </xsd:sequence>
             </xsd:complexType>
             <xsd:complexType name="Visita">
@@ -89,12 +90,25 @@
                         minOccurs="0"
                         name="visitas"
                         type="xsd1:ListaVisitas"/>
+                    <xsd:element
+                        maxOccurs="1"
+                        minOccurs="0"
+                        name="consultorio"
+                        type="xsd1:Consultorio"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="medico" type="xsd1:Medico"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="RespuestaError">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="fallo" type="xsd:boolean"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="mensaje" type="xsd:string"/>
                 </xsd:sequence>
             </xsd:complexType>
         </xsd:schema>
     </wsdl:types>
     <wsdl:message name="GetPacientesPorCiudadResponse">
         <wsdl:part name="pacientes" type="xsd1:ListaPacientes"/>
+        <wsdl:part name="error" type="xsd1:RespuestaError"/>
     </wsdl:message>
     <wsdl:message name="GetDetallePacienteRequest">
         <wsdl:part name="expediente" type="xsd:int"/>
@@ -104,6 +118,7 @@
     </wsdl:message>
     <wsdl:message name="GetDetallePacienteResponse">
         <wsdl:part name="detalle" type="xsd1:DetallePaciente"/>
+        <wsdl:part name="error" type="xsd1:RespuestaError"/>
     </wsdl:message>
     <wsdl:portType name="ServiciosHospitalPortType">
         <wsdl:operation name="GetPacientesPorCiudad">
@@ -141,7 +156,9 @@
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:service name="ServiciosHospital">
-        <wsdl:port binding="tns:ServiciosHospitalPortTypeBinding" name="ServiciosHospitalPort">
+        <wsdl:port
+            binding="tns:ServiciosHospitalPortTypeBinding"
+            name="ServiciosHospitalPort">
             <soap:address location="http://localhost:8000/ccx/ServiciosHospital"/>
         </wsdl:port>
     </wsdl:service>
