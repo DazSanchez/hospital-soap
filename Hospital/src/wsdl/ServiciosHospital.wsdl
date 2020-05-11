@@ -115,6 +115,8 @@
     </wsdl:message>
     <wsdl:message name="GetPacientesPorCiudadRequest">
         <wsdl:part name="ciudad" type="xsd:string"/>
+        <wsdl:part name="pagina" type="xsd:int"/>
+        <wsdl:part name="cantidad" type="xsd:int"/>
     </wsdl:message>
     <wsdl:message name="GetDetallePacienteResponse">
         <wsdl:part name="detalle" type="xsd1:DetallePaciente"/>

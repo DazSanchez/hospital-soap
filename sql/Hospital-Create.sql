@@ -17,7 +17,7 @@ CREATE TABLE direcciones (
     PRIMARY KEY (id));
 CREATE TABLE especialidades (
   id          int(10) NOT NULL AUTO_INCREMENT, 
-  descripcion int(10) NOT NULL, 
+  descripcion varchar(255) NOT NULL, 
   CONSTRAINT especialidad_pk 
     PRIMARY KEY (id));
 CREATE TABLE medicos (
@@ -35,7 +35,7 @@ CREATE TABLE pacientes (
   apMaterno     varchar(60) NOT NULL, 
   telefono      varchar(10) NOT NULL, 
   rfc           varchar(13) NOT NULL UNIQUE, 
-  curp          varchar(13) NOT NULL UNIQUE, 
+  curp          varchar(18) NOT NULL UNIQUE, 
   idDireccion   int(10), 
   photo         mediumtext NOT NULL, 
   idConsultorio int(10) NOT NULL, 

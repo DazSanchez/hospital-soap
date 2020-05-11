@@ -10,5 +10,6 @@ package me.hsanchez.hospital.dao.queries;
  * @author hsanchez <hsanchez.dev@gmail.com>
  */
 public class DireccionQueries {
-    public static final String OBTENER_POR_ID = "SELECT * FROM direcciones WHERE id = ?";
+
+    public static final String OBTENER_POR_CIUDAD = "SELECT * FROM direcciones WHERE ciudad LIKE ?";
 }

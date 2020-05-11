@@ -1,0 +1,1 @@
+INSERT INTO especialidades(descripcion ) VALUES('Cardiología'),('Nutriólogía'),('Podólogía'),('Medicina general');

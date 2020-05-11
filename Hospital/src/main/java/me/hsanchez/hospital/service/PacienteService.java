@@ -7,9 +7,9 @@ package me.hsanchez.hospital.service;
 
 import com.itorizaba.servicioshospital.DetallePaciente;
 import com.itorizaba.servicioshospital.ListaPacientes;
+import com.itorizaba.servicioshospital.Paciente;
 import java.util.List;
 import me.hsanchez.hospital.dao.PacienteDAO;
-import me.hsanchez.hospital.dto.PacienteDTO;
 import me.hsanchez.hospital.exceptions.QueryExecutionException;
 
 /**
@@ -24,7 +24,7 @@ public class PacienteService {
     }
     
     public ListaPacientes obtenerPorCiudad(String ciudad) throws QueryExecutionException {
-        List<PacienteDTO> pacientes = this.pacienteDAO.obtenerPorCiudad(ciudad);
+        List<Paciente> pacientes = this.pacienteDAO.obtenerPorCiudad(ciudad);
         
         ListaPacientes lista = new ListaPacientes();
         lista.getItem().addAll(pacientes);

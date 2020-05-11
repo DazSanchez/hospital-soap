@@ -45,8 +45,7 @@ public class DetallePacienteBeanHandler extends BeanHandler<DetallePaciente> {
         BeanHandler<PacienteDTO> handler = new BeanHandler<>(PacienteDTO.class);
         PacienteDTO paciente = handler.handle(rs);
 
-        Direccion direccion = qr.query(
-                DireccionQueries.OBTENER_POR_ID,
+        Direccion direccion = qr.query(DireccionQueries.OBTENER_POR_CIUDAD,
                 new BeanHandler<>(Direccion.class),
                 paciente.getIdDireccion()
         );

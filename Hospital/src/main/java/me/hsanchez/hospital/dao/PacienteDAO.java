@@ -6,13 +6,12 @@
 package me.hsanchez.hospital.dao;
 
 import com.itorizaba.servicioshospital.DetallePaciente;
+import com.itorizaba.servicioshospital.Paciente;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import me.hsanchez.hospital.dao.queries.DireccionQueries;
 import me.hsanchez.hospital.dao.queries.PacienteQueries;
 import me.hsanchez.hospital.datasource.HospitalDatasource;
-import me.hsanchez.hospital.dto.PacienteDTO;
 import me.hsanchez.hospital.exceptions.QueryExecutionException;
 import me.hsanchez.hospital.handler.DetallePacienteBeanHandler;
 import me.hsanchez.hospital.handler.PacienteBeanHandler;
@@ -23,12 +22,12 @@ import org.apache.commons.dbutils.QueryRunner;
  * @author hsanchez <hsanchez.dev@gmail.com>
  */
 public class PacienteDAO {
-    public List<PacienteDTO> obtenerPorCiudad(String ciudad) throws QueryExecutionException {
+    public List<Paciente> obtenerPorCiudad(String ciudad) throws QueryExecutionException {
         QueryRunner qr = new QueryRunner(HospitalDatasource.getDataSource());
         PacienteBeanHandler handler = new PacienteBeanHandler(qr);
         
         try {
-            return qr.query(PacienteQueries.BUSCAR_POR_CIUDAD, handler, ciudad);
+            return qr.query(DireccionQueries.OBTENER_POR_CIUDAD, handler, "%" + ciudad + "%");
         } catch (SQLException ex) {
             throw new QueryExecutionException("Ocurrió un error obteniendo los pacientes", ex);
         }

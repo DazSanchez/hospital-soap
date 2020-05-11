@@ -5,9 +5,9 @@
  */
 package me.hsanchez.hospital.wsdl;
 
-import com.itorizaba.servicioshospital.RespuestaError;
-import com.itorizaba.servicioshospital.ListaPacientes;
 import com.itorizaba.servicioshospital.DetallePaciente;
+import com.itorizaba.servicioshospital.ListaPacientes;
+import com.itorizaba.servicioshospital.RespuestaError;
 import javax.jws.WebService;
 import javax.xml.ws.Holder;
 import me.hsanchez.hospital.exceptions.QueryExecutionException;
@@ -19,7 +19,7 @@ import me.hsanchez.hospital.service.PacienteService;
  */
 @WebService(serviceName = "ServiciosHospital", portName = "ServiciosHospitalPort", endpointInterface = "com.itorizaba.servicioshospital.ServiciosHospitalPortType", targetNamespace = "http://www.itorizaba.com/ServiciosHospital.wsdl", wsdlLocation = "WEB-INF/wsdl/ServiciosHospital.wsdl")
 public class ServiciosHospital {
-    
+
     private final PacienteService pacienteService;
 
     public ServiciosHospital() {
@@ -29,10 +29,12 @@ public class ServiciosHospital {
     /**
      * Obtiene los pacientes de una determinada ciudad
      * @param ciudad Ciudad a considerar para la búsqueda
+     * @param pagina
+     * @param cantidad
      * @param pacientes Lista de pacientes en la ciudad
      * @param error Error de petición
      */
-    public void getPacientesPorCiudad(String ciudad, Holder<ListaPacientes> pacientes, Holder<RespuestaError> error) {
+    public void getPacientesPorCiudad(String ciudad, int pagina, int cantidad, Holder<ListaPacientes> pacientes, Holder<RespuestaError> error) {
         RespuestaError re = new RespuestaError();
         error.value = re;
         re.setFallo(false);

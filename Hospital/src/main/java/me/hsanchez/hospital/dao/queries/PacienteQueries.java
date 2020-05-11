@@ -10,8 +10,6 @@ package me.hsanchez.hospital.dao.queries;
  * @author hsanchez <hsanchez.dev@gmail.com>
  */
 public class PacienteQueries {
-    public static final String BUSCAR_POR_CIUDAD = "SELECT * FROM direcciones d "
-            + "INNER JOIN pacientes p ON d.id = p.idDireccion "
-            + "WHERE d.ciudad LIKE ?";
+    public static final String BUSCAR_POR_DIRECCION = "SELECT * FROM pacientes WHERE idDireccion = ?";
     public static final String OBTENER_DETALLE_POR_EXPEDIENTE = "SELECT * FROM pacientes WHERE idExpediente = ?";
 }
