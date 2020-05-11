@@ -8,7 +8,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:layout title="Hospital - Búsqueda de pacientes">
-    <section class="card shadow-sm">
+    <section class="card shadow-sm mx-sm-n1">
         <div class="card-body">
             <p class="font-weight-bold">Buscar pacientes por ciudad</p>
             <form method="GET">
@@ -41,40 +41,47 @@
                 </section>
             </c:when>
             <c:otherwise>
-                <c:forEach items="${resultados}" var="paciente">
-                    <section class="card shadow-sm mt-2">
-                        <div class="row no-gutters">
-                            <div class="col-4">
-                                <img src="${paciente.photo}" class="card-img rounded-0" alt="">
-                            </div>
-                            <div class="col-8">
-                                <div class="card-body px-2 py-1 h-100 d-flex flex-column">
-                                    <p class="card-title m-0 h6">
-                                        ${paciente.nombre} ${paciente.apPaterno} ${paciente.apMaterno}
-                                    </p>
-                                    <p class="card-text m-0">
-                                        <small class="text-muted">
-                                            ${paciente.direccion.direccion}, ${paciente.direccion.ciudad}
-                                        </small>
-                                    </p>
-                                    <p class="card-text">
-                                        <small class="text-muted">
-                                            Tel: ${paciente.telefono}
-                                        </small>
-                                    </p>
-                                    <div class="d-flex justify-content-between push-bottom align-items-center">
-                                        <p class="m-0 text-muted">
-                                            <small>Expediente: ${paciente.idExpediente}</small>
+                <div class="d-flex flex-wrap justify-content-between">
+                    <c:forEach items="${resultados}" var="paciente" varStatus="status">
+                        <section class="card shadow-sm mt-2 col-sm-6 col-xl-4 p-0 mx-sm-n1">
+                            <div class="row no-gutters">
+                                <div class="col-4 d-flex align-items-center">
+                                    <img src="${paciente.photo}" class="card-img rounded-0" alt="">
+                                </div>
+                                <div class="col-8">
+                                    <div class="card-body px-2 py-1 h-100 d-flex flex-column">
+                                        <p class="card-title m-0 h6 text-truncate">
+                                            ${paciente.nombre} ${paciente.apPaterno} ${paciente.apMaterno}
                                         </p>
-                                        <a href='<c:url value="/paciente/${paciente.idExpediente}" />' class="btn btn-link">
-                                            Ver detalle
-                                        </a>
+                                        <p class="card-text m-0 text-truncate">
+                                            <small class="text-muted">
+                                                ${paciente.direccion.direccion}
+                                            </small>
+                                        </p>
+                                        <p class="card-text m-0 text-truncate">
+                                            <small class="text-muted">
+                                                ${paciente.direccion.ciudad}
+                                            </small>
+                                        </p>
+                                        <p class="card-text m-0">
+                                            <small class="text-muted">
+                                                Tel: ${paciente.telefono}
+                                            </small>
+                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="m-0 text-muted">
+                                                <small>Expediente: ${paciente.idExpediente}</small>
+                                            </p>
+                                            <a href='<c:url value="/paciente/${paciente.idExpediente}" />' class="btn btn-link">
+                                                Ver detalle
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                </c:forEach>
+                        </section>
+                    </c:forEach>
+                </div>
             </c:otherwise>
         </c:choose>
     </c:if>
