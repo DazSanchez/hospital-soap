@@ -41,6 +41,20 @@
                 </section>
             </c:when>
             <c:otherwise>
+                <div class="form-group d-flex mt-2 mb-0 align-items-center">
+                    <div class="col p-0 text-right">
+                        <label class="m-0" for="exampleFormControlSelect2">
+                            Resultados por página
+                        </label>
+                    </div>
+                    <div class="col-3 col-md-2 col-lg-1 pr-0">
+                        <select class="form-control" id="exampleFormControlSelect2">
+                            <option>5</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="d-flex flex-wrap justify-content-between">
                     <c:forEach items="${resultados}" var="paciente" varStatus="status">
                         <section class="card shadow-sm mt-2 col-sm-6 col-xl-4 p-0 mx-sm-n1">
@@ -82,6 +96,17 @@
                         </section>
                     </c:forEach>
                 </div>
+
+                <nav class="d-flex justify-content-center mt-2">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#">Anterior</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Siguiente</a>
+                        </li>
+                    </ul>
+                </nav>
             </c:otherwise>
         </c:choose>
     </c:if>
