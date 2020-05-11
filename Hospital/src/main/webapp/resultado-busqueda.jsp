@@ -45,23 +45,26 @@
                     <section class="card shadow-sm mt-2">
                         <div class="row no-gutters">
                             <div class="col-4">
-                                <img src="${paciente.photo}" class="card-img" alt="">
+                                <img src="${paciente.photo}" class="card-img rounded-0" alt="">
                             </div>
                             <div class="col-8">
-                                <div class="card-body px-2 pt-2 pb-1 h-100 d-flex flex-column">
+                                <div class="card-body px-2 py-1 h-100 d-flex flex-column">
                                     <p class="card-title m-0 h6">
                                         ${paciente.nombre} ${paciente.apPaterno} ${paciente.apMaterno}
                                     </p>
-                                    <p class="card-text">
+                                    <p class="card-text m-0">
                                         <small class="text-muted">
                                             ${paciente.direccion.direccion}, ${paciente.direccion.ciudad}
                                         </small>
                                     </p>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            Tel: ${paciente.telefono}
+                                        </small>
+                                    </p>
                                     <div class="d-flex justify-content-between push-bottom align-items-center">
                                         <p class="m-0 text-muted">
-                                            <small>
-                                                Expediente: ${paciente.idExpediente}
-                                            </small>
+                                            <small>Expediente: ${paciente.idExpediente}</small>
                                         </p>
                                         <a href='<c:url value="/paciente/${paciente.idExpediente}" />' class="btn btn-link">
                                             Ver detalle

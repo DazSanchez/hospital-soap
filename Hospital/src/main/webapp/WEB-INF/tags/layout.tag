@@ -26,7 +26,7 @@
             <span class="navbar-brand mb-0 h1"> ${title} </span>
         </nav>
 
-        <main class="container pt-3">
+        <main class="container py-3">
             <jsp:doBody />
         </main>
     </body>

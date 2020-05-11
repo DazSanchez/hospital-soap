@@ -13,5 +13,5 @@ public class VisitaQueries {
 
     public static final String OBTENER_POR_EXPEDIENTE = "SELECT * FROM visitas "
             + "WHERE idPaciente = ? "
-            + "LIMIT 3 ORDER BY fecha DESC";
+            + "ORDER BY DATE(fecha) DESC LIMIT 3 ";
 }

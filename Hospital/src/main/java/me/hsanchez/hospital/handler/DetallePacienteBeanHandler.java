@@ -5,12 +5,10 @@
  */
 package me.hsanchez.hospital.handler;
 
-import com.itorizaba.servicioshospital.Consultorio;
 import com.itorizaba.servicioshospital.DetallePaciente;
 import com.itorizaba.servicioshospital.Direccion;
 import com.itorizaba.servicioshospital.Especialidad;
 import com.itorizaba.servicioshospital.ListaVisitas;
-import com.itorizaba.servicioshospital.Medico;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -53,7 +51,7 @@ public class DetallePacienteBeanHandler extends BeanHandler<DetallePaciente> {
 
         List<VisitaDTO> visitas = qr.query(
                 VisitaQueries.OBTENER_POR_EXPEDIENTE,
-                new BeanListHandler<>(VisitaDTO.class),
+                new VisitaBeanHandler(),
                 paciente.getIdExpediente()
         );
 
