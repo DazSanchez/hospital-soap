@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Holder;
 import javax.xml.ws.WebServiceRef;
 import me.hsanchez.hospital.exceptions.QueryExecutionException;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  *
@@ -36,25 +37,44 @@ public class BusquedaPorCiudadServlet extends HttpServlet {
         
         if(q != null) {
             
+            String page = req.getParameter("page");
+            String perPage = req.getParameter("perPage");
+            int pageInt = 1;
+            int perPageInt = 5;
+            
+            if(page != null && NumberUtils.isCreatable(page)) {
+                pageInt = Integer.parseInt(page, 10);
+            }
+            
+            if(perPage != null && NumberUtils.isCreatable(perPage)) {
+                perPageInt = Integer.parseInt(perPage, 10);
+            }
+            
+            req.setAttribute("page", pageInt);
+            req.setAttribute("perPage", perPageInt);
             req.setAttribute("buscado", true);
+            
+            req.setAttribute("hasPrev", pageInt != 1);
             
             try {
                 ServiciosHospitalPortType port = service.getServiciosHospitalPort();
-                int pagina = 0;
-                int cantidad = 0;
                 Holder<ListaPacientes> pacientes = new Holder<>();
                 Holder<RespuestaError> error = new Holder<>();
-                port.getPacientesPorCiudad(q, pagina, cantidad, pacientes, error);
+                Holder<Integer> total = new Holder<>();
+                port.getPacientesPorCiudad(q, pageInt, perPageInt, pacientes, error, total);
                 
                 if(error.value.isFallo()) {
                     throw new QueryExecutionException(error.value.getMensaje());
                 }
                 
                 req.setAttribute("resultados", pacientes.value.getItem());
+                req.setAttribute("hasNext", (pageInt * perPageInt) < total.value);
             } catch (Exception ex) {
                 req.setAttribute("error", ex);
             }
 
+        } else {
+            req.setAttribute("page", 1);
         }
         
         req.getRequestDispatcher("/resultado-busqueda.jsp").forward(req, resp);

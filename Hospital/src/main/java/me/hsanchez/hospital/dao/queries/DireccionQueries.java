@@ -11,5 +11,6 @@ package me.hsanchez.hospital.dao.queries;
  */
 public class DireccionQueries {
 
-    public static final String OBTENER_POR_CIUDAD = "SELECT * FROM direcciones WHERE ciudad LIKE ?";
+    public static final String CONTAR_POR_CIUDAD = "SELECT COUNT(*) FROM direcciones WHERE ciudad LIKE ?";
+    public static final String OBTENER_POR_CIUDAD = "SELECT * FROM direcciones WHERE ciudad LIKE ? LIMIT ?,?";
 }

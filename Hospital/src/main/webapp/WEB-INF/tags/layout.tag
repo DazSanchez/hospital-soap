@@ -36,13 +36,16 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const back = document.getElementById("back");
-            const host = location.host + "/Hospital";
             
-            if(document.referrer.includes(host)) {
-                back.href = document.referrer;
-            } else {
-                const url = back.dataset.fallbackUrl;
-                back.href = host + url;
+            if(back != null) {
+                const host = location.host + "/Hospital";
+
+                if(document.referrer.includes(host)) {
+                    back.href = document.referrer;
+                } else {
+                    const url = back.dataset.fallbackUrl;
+                    back.href = host + url;
+                }
             }
         });
     </script>

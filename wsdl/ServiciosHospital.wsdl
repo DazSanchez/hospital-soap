@@ -109,6 +109,7 @@
     <wsdl:message name="GetPacientesPorCiudadResponse">
         <wsdl:part name="pacientes" type="xsd1:ListaPacientes"/>
         <wsdl:part name="error" type="xsd1:RespuestaError"/>
+        <wsdl:part name="total" type="xsd:int"/>
     </wsdl:message>
     <wsdl:message name="GetDetallePacienteRequest">
         <wsdl:part name="expediente" type="xsd:int"/>

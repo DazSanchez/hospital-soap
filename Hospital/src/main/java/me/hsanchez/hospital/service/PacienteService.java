@@ -10,6 +10,7 @@ import com.itorizaba.servicioshospital.ListaPacientes;
 import com.itorizaba.servicioshospital.Paciente;
 import java.util.List;
 import me.hsanchez.hospital.dao.PacienteDAO;
+import me.hsanchez.hospital.dto.ResultadoBusquedaDTO;
 import me.hsanchez.hospital.exceptions.QueryExecutionException;
 
 /**
@@ -23,13 +24,17 @@ public class PacienteService {
         this.pacienteDAO = new PacienteDAO();
     }
     
-    public ListaPacientes obtenerPorCiudad(String ciudad) throws QueryExecutionException {
-        List<Paciente> pacientes = this.pacienteDAO.obtenerPorCiudad(ciudad);
+    public ResultadoBusquedaDTO<ListaPacientes> obtenerPorCiudad(String ciudad, int page, int perPage) throws QueryExecutionException {
+        ResultadoBusquedaDTO<List<Paciente>> rb = this.pacienteDAO.obtenerPorCiudad(ciudad, page, perPage);
         
         ListaPacientes lista = new ListaPacientes();
-        lista.getItem().addAll(pacientes);
+        lista.getItem().addAll(rb.getPayload());
         
-        return lista;
+        ResultadoBusquedaDTO<ListaPacientes> resultado = new ResultadoBusquedaDTO<>();
+        resultado.setPayload(lista);
+        resultado.setTotal(rb.getTotal());
+        
+        return resultado;
     }
     
     public DetallePaciente obtenerDetalle(int expediente) throws QueryExecutionException {

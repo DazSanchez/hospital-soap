@@ -11,13 +11,14 @@
     <section class="card shadow-sm mx-sm-n1">
         <div class="card-body">
             <p class="font-weight-bold">Buscar pacientes por ciudad</p>
-            <form method="GET">
+            <form method="GET" id="search">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Ej: Orizaba" name="q" value="${q}">
                     <div class="input-group-append">
                         <button class="btn btn-info" type="submit">Buscar</button>
                     </div>
                 </div>
+                    <input type="number" hidden name="page" value="${page}" />
             </form>
         </div>
     </section>
@@ -43,14 +44,14 @@
             <c:otherwise>
                 <div class="form-group d-flex mt-2 mb-0 align-items-center">
                     <div class="col p-0 text-right">
-                        <label class="m-0" for="exampleFormControlSelect2">
+                        <label class="m-0" for="perPage">
                             Resultados por página
                         </label>
                     </div>
                     <div class="col-3 col-md-2 col-lg-1 pr-0">
-                        <select class="form-control" id="exampleFormControlSelect2">
-                            <option>5</option>
-                            <option>10</option>
+                        <select name="perPage" class="form-control" id="perPage" form="search">
+                            <option ${perPage == '5' ? 'selected' : ''}>5</option>
+                            <option ${perPage == '10' ? 'selected' : ''}>10</option>
                         </select>
                     </div>
                 </div>
@@ -99,11 +100,11 @@
 
                 <nav class="d-flex justify-content-center mt-2">
                     <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#">Anterior</a>
+                        <li class="page-item ${!hasPrev ? 'disabled' : '' }">
+                            <a class="page-link" href='<c:url value="/?q=${q}&page=${page - 1}&perPage=${perPage}" />'>Anterior</a>
                         </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Siguiente</a>
+                        <li class="page-item ${!hasNext ? 'disabled' : '' }">
+                            <a class="page-link" href='<c:url value="/?q=${q}&page=${page + 1}&perPage=${perPage}" />'>Siguiente</a>
                         </li>
                     </ul>
                 </nav>
